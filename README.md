@@ -23,7 +23,9 @@ My custom scripts directory is called "dookieButter", be sure to edit to your li
 
 * Copy **bike.sqf** and **bike2.sqf** to dookieButter
 
-* Add the following
+* Edit **fn_selfActions.sqf** within the mission.pbo
+ 
+Add the following
 ```
 // ---------------------------------------Deployable Bike Start------------------------------------
 _itemsPlayer = items player;
@@ -50,7 +52,7 @@ if (_canDo && (speed player <= 1) && cursorTarget isKindOf "MMT_USMC" && (cursor
 // ---------------------------------------Deployable Bike End------------------------------------
 
 ```
-just below (in fn_selfActions.sqf)
+just below
 ```
 _onLadder =		(getNumber (configFile >> "CfgMovesMaleSdr" >> "States" >> (animationState player) >> "onLadder")) == 1;
 _canDo = (!r_drag_sqf && !r_player_unconscious && !_onLadder);
