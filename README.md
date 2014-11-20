@@ -58,9 +58,9 @@ if(vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer _
 ```
 This is buried within the inline function: **server_checkHackers**
 
-Change it to include: && (vehicle _x getVariable [""Sarge"",0] != 1)
+Change it to include: && (vehicle _x getVariable [""Sarge"",0] = 1)
 ```
-if(vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer _x)  && !((typeOf vehicle _x) in DZE_safeVehicle) && (vehicle _x getVariable [""Sarge"",0] != 1) ) then {
+if(vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer _x)  && !(((typeOf vehicle _x) in DZE_safeVehicle) or (vehicle _x getVariable [""Sarge"",0] = 1) )) then {
 ```
 
 #References
