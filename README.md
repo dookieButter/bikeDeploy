@@ -7,7 +7,7 @@ Deserves Credit: Player2 (opendayz.net), cen (opendayz.net), Axe Cop (epochmod.c
 
 Hello Friends,
 
-This is an upload of what I use, which is based off of a script developed by Player2 on opendayz.net. Most of the relevant additions were made by Axe Cop, but this script is has gone through so many hands it is hard to track. If I miss credit for someone, let me know and post a source. The biggest reason I am posting this, is because when I rebuild a server... this is one of the most difficult things to track down how I did it the first time. I've tried to use other "improved" scripts, but after trying to apply them along with fixes... they still broke the game, or were dangerous.
+This is an upload of what I use, which is based off of a script developed by Player2 on opendayz.net. Most of the relevant additions were made by Axe Cop, but this script is has gone through so many hands it is hard to track. I apologize for the instructions being only Epoch centric, that is what I use and it is tough to play "what if".
 
 Anyways, lets get this show on the road... GitHub frightens and confuses me anyways.
 - Original source I found buried in here: http://opendayz.net/threads/auto-refuel-deploy-able-bikes.13707/
@@ -55,15 +55,17 @@ just below (in fn_selfActions.sqf)
 _onLadder =		(getNumber (configFile >> "CfgMovesMaleSdr" >> "States" >> (animationState player) >> "onLadder")) == 1;
 _canDo = (!r_drag_sqf && !r_player_unconscious && !_onLadder);
 ```
-*  Edit **variables.sqf** (I pull the whole thing into my mission.pbo instead of amending it)
+*  Edit **server_functions.sqf** within the dayz_server.pbo
 
 Find the following
 ```
-DZE_safeVehicle = ["ParachuteWest","ParachuteC"];
+if(vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer _x)  && !((typeOf vehicle _x) in DZE_safeVehicle)) then {
 ```
-Edit to include "MMT_USMC"
+This is buried within the inline function: **server_checkHackers**
+
+Change it to include: && (vehicle _x getVariable [""Sarge"",0] != 1)
 ```
-DZE_safeVehicle = ["ParachuteWest","ParachuteC","MMT_USMC"];
+if(vehicle _x != _x && !(vehicle _x in PVDZE_serverObjectMonitor) && (isPlayer _x)  && !((typeOf vehicle _x) in DZE_safeVehicle) && (vehicle _x getVariable [""Sarge"",0] != 1) ) then {
 ```
 
 #Current bugs, nuisances, future addons, and exploits
@@ -71,4 +73,3 @@ DZE_safeVehicle = ["ParachuteWest","ParachuteC","MMT_USMC"];
 * accidental scroll wheel activation of bike script
   * Solution: use maca134's right click function for deployment
 * not enough hookers
-* add search for sarge variable instead of specifically defining what bike I spawn
