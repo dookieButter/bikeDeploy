@@ -17,4 +17,48 @@ Anyways, lets get this show on the road... GitHub frightens and confuses me anyw
 If someone finds the original source, link me... PLEASE!
 
 #Instructions
-wat?
+My custom scripts directory is called "dookieButter", be sure to edit to your liking. I will add complete instructions for enabling the fn_selfActions.sqf when I am super bored and have the need to give people opportunities to correct me.
+
+* Create custom script folder (i.e.: dookieButter) within the mission file structure
+
+* Copy **bike.sqf** and **bike2.sqf** to dookieButter
+
+* Add the following
+```
+// ---------------------------------------Deployable Bike Start------------------------------------
+_itemsPlayer = items player;
+_hasToolbox = "ItemToolbox" in _itemsPlayer;
+if (_canDo && (speed player <= 1) && _hasToolbox) then {
+	if (s_player_deploybike < 0) then {
+		s_player_deploybike = player addaction[("<t color=""#007ab7"">" + ("Deploy Bike (will use Toolbox)") +"</t>"),"dookieButter\bike.sqf","",5,false,true,"", ""];
+	};
+} else {
+	player removeAction s_player_deploybike;
+	s_player_deploybike = -1;
+};
+
+if (_canDo && (speed player <= 1) && cursorTarget isKindOf "MMT_USMC" && (cursorTarget getVariable ["SpawnedBike",0] == 1)) then {
+	if (s_player_deploybike2 < 0) then {
+		s_player_deploybike2 = player addaction[("<t color=""#007ab7"">" + ("Re-Pack Bike") +"</t>"),"dookieButter\bike2.sqf","",5,false,true,"", ""];
+	};
+} else {
+	player removeAction s_player_deploybike2;
+	s_player_deploybike2 = -1;
+};
+// ---------------------------------------Deployable Bike End------------------------------------
+
+```
+just below (in fn_selfActions.sqf)
+```
+_onLadder =		(getNumber (configFile >> "CfgMovesMaleSdr" >> "States" >> (animationState player) >> "onLadder")) == 1;
+_canDo = (!r_drag_sqf && !r_player_unconscious && !_onLadder);
+```
+*  Edit ***variables.sqf*** (I pull the whole thing into my mission.pbo instead of amending it)
+Find the following
+```
+DZE_safeVehicle = ["ParachuteWest","ParachuteC"];
+```
+Edit to include "MMT_USMC"
+```
+DZE_safeVehicle = ["ParachuteWest","ParachuteC","MMT_USMC"];
+```
