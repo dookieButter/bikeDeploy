@@ -29,21 +29,23 @@ My custom scripts directory is called "dookieButter", be sure to edit to your li
 _itemsPlayer = items player;
 _hasToolbox = "ItemToolbox" in _itemsPlayer;
 if (_canDo && (speed player <= 1) && _hasToolbox) then {
-	if (s_player_deploybike < 0) then {
-		s_player_deploybike = player addaction[("<t color=""#007ab7"">" + ("Deploy Bike (will use Toolbox)") +"</t>"),"dookieButter\bike.sqf","",5,false,true,"", ""];
-	};
+    if (s_player_deploybike < 0) then {
+        s_player_deploybike = player addaction[("<t color=""#007ab7"">" + ("Deploy Bike (will use Toolbox)") +"</t>"),"dookieButter\bike.sqf","",5,false,true,"", ""];
+
+    };
 } else {
-	player removeAction s_player_deploybike;
-	s_player_deploybike = -1;
+    player removeAction s_player_deploybike;
+    s_player_deploybike = -1;
 };
 
 if (_canDo && (speed player <= 1) && cursorTarget isKindOf "MMT_USMC" && (cursorTarget getVariable ["SpawnedBike",0] == 1)) then {
-	if (s_player_deploybike2 < 0) then {
-		s_player_deploybike2 = player addaction[("<t color=""#007ab7"">" + ("Re-Pack Bike") +"</t>"),"dookieButter\bike2.sqf","",5,false,true,"", ""];
-	};
+    if (s_player_deploybike2 < 0) then {
+        s_player_deploybike2 = player addaction[("<t color=""#007ab7"">" + ("Re-Pack Bike") +"</t>"),"dookieButter\bike2.sqf","",5,false,true,"", ""];
+
+    };
 } else {
-	player removeAction s_player_deploybike2;
-	s_player_deploybike2 = -1;
+    player removeAction s_player_deploybike2;
+    s_player_deploybike2 = -1;
 };
 // ---------------------------------------Deployable Bike End------------------------------------
 
@@ -53,7 +55,8 @@ just below (in fn_selfActions.sqf)
 _onLadder =		(getNumber (configFile >> "CfgMovesMaleSdr" >> "States" >> (animationState player) >> "onLadder")) == 1;
 _canDo = (!r_drag_sqf && !r_player_unconscious && !_onLadder);
 ```
-*  Edit ***variables.sqf*** (I pull the whole thing into my mission.pbo instead of amending it)
+*  Edit **variables.sqf** (I pull the whole thing into my mission.pbo instead of amending it)
+
 Find the following
 ```
 DZE_safeVehicle = ["ParachuteWest","ParachuteC"];
@@ -62,3 +65,10 @@ Edit to include "MMT_USMC"
 ```
 DZE_safeVehicle = ["ParachuteWest","ParachuteC","MMT_USMC"];
 ```
+
+#Current bugs, nuisances, future addons, and exploits
+* Players can highlight bike, activate scroll wheel menu, run away and create toolbox without deleting the bike
+* accidental scroll wheel activation of bike script
+  * Solution: use maca134's right click function for deployment
+* not enough hookers
+* add search for sarge variable instead of specifically defining what bike I spawn
