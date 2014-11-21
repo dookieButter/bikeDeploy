@@ -74,7 +74,6 @@ If someone finds the original source, link me... PLEASE!
 
 
 #Current bugs, nuisances, future addons, and exploits
-* Players can highlight bike, activate scroll wheel menu, run away and create toolbox without deleting the bike
 * accidental scroll wheel activation of bike script
   * Solution: use maca134's right click function for deployment
 * not enough hookers
